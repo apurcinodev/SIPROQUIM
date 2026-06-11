@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SIPROQUIM | Comparador</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <main class="shell">
+      <section class="hero">
+        <div class="hero__copy">
+          <p class="eyebrow">Controle de químicos</p>
+          <h1>Compare a lista da Polícia Federal com a movimentação mensal.</h1>
+          <p class="hero__text">
+            Envie o PDF da lista de controlados e o arquivo mensal em PDF, XLS, XLSX ou CSV.
+            A busca do item movimentado considera a coluna PN ou NOMENCLATURA.
+          </p>
+        </div>
+        <div class="hero__card">
+          <form id="upload-form" class="upload-panel">
+            <label class="field">
+              <span>Lista de controlados (PDF)</span>
+              <input type="file" name="controlledList" accept=".pdf" required />
+            </label>
+            <label class="field">
+              <span>Movimentação mensal (PDF, XLS, XLSX, CSV)</span>
+              <input
+                type="file"
+                name="movementSheet"
+                accept=".pdf,.xls,.xlsx,.csv"
+                required
+              />
+            </label>
+            <label class="field">
+              <span>Modo de comparação</span>
+              <select name="comparisonMode">
+                <option value="hybrid">Exata + aproximada</option>
+                <option value="exact">Somente exata</option>
+              </select>
+            </label>
+            <label class="field">
+              <span>Limite para aproximação</span>
+              <input
+                type="range"
+                name="fuzzyThreshold"
+                min="0.7"
+                max="1"
+                step="0.01"
+                value="0.9"
+              />
+              <strong id="threshold-value">0.90</strong>
+            </label>
+            <button type="submit" class="button button--primary">Processar arquivos</button>
+          </form>
+        </div>
+      </section>
+
+      <section id="status" class="status status--hidden"></section>
+
+      <section id="results" class="results results--hidden">
+        <div class="summary-grid" id="summary-grid"></div>
+
+        <div class="toolbar">
+          <div>
+            <h2>Resultados</h2>
+            <p id="columns-detected"></p>
+          </div>
+          <div class="toolbar__actions">
+            <button data-export="json" class="button button--ghost">Exportar JSON</button>
+            <button data-export="csv" class="button button--ghost">Exportar CSV</button>
+            <button data-export="xlsx" class="button button--primary">Exportar Excel</button>
+          </div>
+        </div>
+
+        <div class="panel">
+          <h3>Movimentações encontradas</h3>
+          <div id="matched-list" class="stack"></div>
+        </div>
+      </section>
+    </main>
+
+    <template id="match-template">
+      <article class="match-card">
+        <div class="match-card__header">
+          <div>
+            <p class="match-card__eyebrow">Produto controlado</p>
+            <h4 class="match-product"></h4>
+          </div>
+          <span class="pill match-count"></span>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Produto na planilha</th>
+                <th>Data</th>
+                <th>Tipo</th>
+                <th>Motivo</th>
+                <th>Documento</th>
+                <th>Quantidade</th>
+                <th>Unidade</th>
+                <th>Setor</th>
+                <th>Responsável</th>
+                <th>Observações</th>
+                <th>Correspondência</th>
+              </tr>
+            </thead>
+            <tbody class="match-rows"></tbody>
+          </table>
+        </div>
+      </article>
+    </template>
+
+    <script src="/app.js"></script>
+  </body>
+</html>

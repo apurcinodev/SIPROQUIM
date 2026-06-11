@@ -1,0 +1,21 @@
+[build]
+  command = "npm run build"
+  publish = "public"
+
+[build.environment]
+  NODE_VERSION = "22"
+
+[functions]
+  directory = "netlify/functions"
+  included_files = ["node_modules/pdfjs-dist/standard_fonts/**"]
+  node_bundler = "esbuild"
+
+[[headers]]
+  for = "/font/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/images/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
