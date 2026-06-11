@@ -1,0 +1,34 @@
+{
+  "name": "siproquim-comparador",
+  "version": "1.0.0",
+  "description": "Aplicacao local para comparar produtos quimicos controlados com movimentacoes mensais de materiais.",
+  "main": "src/server.js",
+  "type": "commonjs",
+  "scripts": {
+    "build": "node scripts/prepare-netlify-assets.js",
+    "start": "node src/server.js",
+    "dev": "node --watch src/server.js",
+    "generate:examples": "node scripts/generate-example-files.js"
+  },
+  "engines": {
+    "node": ">=22.13.0"
+  },
+  "keywords": [
+    "nodejs",
+    "excel",
+    "pdf",
+    "comparacao",
+    "produtos-controlados"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^5.1.0",
+    "fastest-levenshtein": "^1.0.16",
+    "multer": "^2.0.2",
+    "pdf-parse": "^1.1.1",
+    "pdfjs-dist": "^5.5.207",
+    "pdfkit": "^0.17.2",
+    "xlsx": "^0.18.5"
+  }
+}
